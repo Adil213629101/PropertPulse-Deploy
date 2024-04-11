@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block title %} Realtor Scraper | Property Pulse {% endblock %}
+
+{% block content %}
+
+<!-- ====== Banner Section Start -->
+<div class="relative z-10 overflow-hidden pt-[120px] pb-[60px] md:pt-[130px] lg:pt-[160px] dark:bg-dark">
+    <div
+        class="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-stroke/0 via-stroke dark:via-dark-3 to-stroke/0">
+    </div>
+    <div class="container">
+        <div class="flex flex-wrap items-center -mx-4">
+            <div class="w-full px-4">
+                <div class="text-center">
+                    <h1
+                        class="mb-4 text-3xl font-bold text-dark dark:text-white sm:text-4xl md:text-[40px] md:leading-[1.2]">
+                        Realtor Scraper</h1>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ====== Banner Section End -->
+
+<!-- ====== Scraping Layout Start -->
+
+<section class="bg-white py-20 dark:bg-dark-2 lg:py-[110px]">
+    <div class="container mx-auto">
+        <div class="flex flex-wrap items-center -mx-4">
+            <div class="w-full px-4 md:w-5/12 lg:w-6/12">
+                <div class="text-center">
+                    <img src="./assets/images/spider.png." alt="image" class="max-w-full mx-auto" />
+                </div>
+            </div>
+            <div class="w-full px-4 md:w-7/12 lg:w-6/12 xl:w-5/12">
+                <div>
+                    <div class="mb-8">
+                        <svg width="327" height="132" viewBox="0 0 327 132" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <mask id="path-1-outside-1_2014_12631" maskUnits="userSpaceOnUse" x="4" y="22" width="312"
+                                height="107" fill="black">
+                                <rect fill="white" x="4" y="22" width="312" height="107" />
+                                <!-- Add your mask content here -->
+                            </mask>
+                            <!-- Add your SVG content here -->
+                        </svg>
+                    </div>
+                    <h3 class="mb-5 text-2xl font-semibold text-dark dark:text-white">
+                        Scraping Page
+                    </h3>
+                    <p class="mb-8 text-base text-body-color dark:text-dark-6">
+                        Enter the URL you want to scrape data from and click the "Scrape" button. We'll retrieve the
+                        data for you.
+                    </p>
+                    <!-- Input form to enter URL -->
+                    <form id="scrape-form">
+                        <input type="text" id="url-input" placeholder="Enter URL..."
+                            class="w-full mb-4 px-4 py-3 border rounded-md">
+                        <button type="submit" id="scrape-button"
+                            class="py-3 text-base font-medium text-white transition rounded-md bg-dark px-7 hover:bg-primary">Scrape</button>
+                    </form>
+                    <!-- Spinner to indicate loading -->
+                    <div id="loading-spinner" style="display: none;">
+                        Scraping the data...
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </div>
+</section>
+
+<!-- ====== Datatable Section Start -->
+<!-- <div class="relative z-10 overflow-hidden pt-[120px] pb-[60px] md:pt-[130px] lg:pt-[160px] dark:bg-dark">
+    <div
+        class="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-stroke/0 via-stroke dark:via-dark-3 to-stroke/0">
+    </div>
+    <div id="scrape-container" style="display: none;">
+        <h1 class="mb-4 text-3xl font-bold text-dark dark:text-white sm:text-4xl md:text-[40px] md:leading-[1.2]">
+            Scraped Data</h1>
+        <div id="data-table-container" class="table-container">
+        </div>
+    </div>
+</div> -->
+
+<div class="relative z-10 overflow-hidden pt-[120px] pb-[60px] md:pt-[130px] lg:pt-[160px] dark:bg-dark">
+    <div
+        class="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-stroke/0 via-stroke dark:via-dark-3 to-stroke/0">
+    </div>
+    <div id="scrape-container" style="display: none; margin: 0 auto; max-width: 90%;">
+
+        <h1 class="mb-4 text-3xl font-bold text-dark dark:text-white sm:text-4xl md:text-[40px] md:leading-[1.2]">
+            Scraped Data</h1>
+
+        <div id="data-table-container" class="table-container" style="overflow-x: auto;">
+            <!-- Data table will be dynamically added here -->
+        </div>
+    </div>
+</div>
+
+<!-- ====== Datatable Section End -->
+
+
+</section>
+<!-- ====== Scraping Layout End -->
+<script src="assets/js/fetch_data.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.0.1/js/dataTables.buttons.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.dataTables.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.print.min.js"></script>
+{% endblock %}

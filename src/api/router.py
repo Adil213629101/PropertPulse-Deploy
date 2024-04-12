@@ -80,8 +80,8 @@ async def get_properties(url_input: URLInput):
         cache[url_input.url] = response
         return response
 
-    except KeyError:
-        raise HTTPException(status_code=404, detail="Properties not found")
+    except KeyError as e:
+        print(e)
 
     except Exception as e:
         print(e)

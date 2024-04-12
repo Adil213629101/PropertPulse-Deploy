@@ -58,10 +58,6 @@ async def get_properties(url_input: URLInput):
     if not url_input.url.path.endswith("/"):
         url_input.url = f"{url_input.url}/"
 
-    cached_result = cache.get(url_input.url)
-    if cached_result:
-        return cached_result
-
     try:
         scraper = RealtorScraper(url=url_input.url, filepath='test.json')
         scraper.initialize()
@@ -70,14 +66,12 @@ async def get_properties(url_input: URLInput):
         properties = result[0]
         metadata = result[-1]
 
-        print(f"Fetched {len(properties)} Properties")
         flatten_properties = [flatten_dict(d) for d in properties]
         response = metadata
         response['count'] = len(properties)
         response['request_url'] = url_input.url
         response["properties"] = flatten_properties
 
-        cache[url_input.url] = response
         return response
 
     except KeyError as e:

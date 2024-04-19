@@ -6,6 +6,8 @@ from cachetools import TTLCache
 from datetime import datetime
 from utils.scraper import RealtorScraper
 from utils.common import flatten_dict
+import json
+
 
 # Define a Pydantic model for the input URL
 class URLInput(BaseModel):
@@ -28,7 +30,7 @@ realtor_router = APIRouter()
 
 # Define a route to provide information about the API
 @realtor_router.get("/")
-async def realtor_home():
+def realtor_home():
     """
     Home endpoint for the Realtor scraping API.
 
@@ -58,6 +60,11 @@ async def get_properties(url_input: URLInput):
     if not url_input.url.path.endswith("/"):
         url_input.url = f"{url_input.url}/"
 
+    cached_result = cache.get(url_input.url)
+    if cached_result:
+        print(f"Cache hit {url_input.url}")
+        return cached_result
+
     try:
         scraper = RealtorScraper(url=url_input.url, filepath='test.json')
         scraper.initialize()
@@ -72,12 +79,12 @@ async def get_properties(url_input: URLInput):
         response['request_url'] = url_input.url
         response["properties"] = flatten_properties
 
+        cache[url_input.url] = response
         return response
 
-    except KeyError as e:
-        print(e)
+    except KeyError:
+        raise HTTPException(status_code=404, detail="Properties not found")
 
     except Exception as e:
         print(e)
         raise HTTPException(status_code=500, detail="Internal Server Error")
-

@@ -33,5 +33,5 @@ async def main():
 app.include_router(realtor_router, prefix="/realtor", tags=["Realtor"])
 
 
-# if __name__ == "__main__":
-#     uvicorn.run(app, host="127.0.0.1", port=8000)
+if __name__ == "__main__":
+    uvicorn.run(app, host="127.0.0.1", port=8000)

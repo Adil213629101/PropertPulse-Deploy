@@ -1,4 +1,8 @@
 document.addEventListener("DOMContentLoaded", async function () {
+  // Get the current URL's hostname
+  const hostname = window.location.hostname;
+  const port = 80;
+
   const form = document.getElementById("scrape-form");
   const urlInput = document.getElementById("url-input");
   const loadingSpinner = document.getElementById("loading-spinner");
@@ -15,7 +19,8 @@ document.addEventListener("DOMContentLoaded", async function () {
   async function handleSubmit(event) {
     event.preventDefault();
     const url = urlInput.value.trim();
-    const apiUrl = "http://127.0.0.1:8000/realtor/properties/";
+    const endpoint = "/realtor/properties/";
+    const apiUrl = `http://${hostname}:${port}${endpoint}`;
     const formData = {
       url: url,
     };

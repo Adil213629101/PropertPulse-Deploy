@@ -19,4 +19,4 @@ COPY src/ .
 EXPOSE 5000 8000
 
 # Command to run the Flask and FastAPI apps
-CMD ["bash", "-c", "(cd src/web && flask run --host=0.0.0.0) & (cd src/api && python -m uvicorn main:app --host 0.0.0.0 --port 8000)"]
+CMD ["bash", "-c", "(cd src/web && python app.py) & (cd src/api && python -m uvicorn main:app --host 0.0.0.0 --port 8000)"]

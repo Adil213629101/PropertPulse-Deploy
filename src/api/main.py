@@ -1,6 +1,8 @@
 import uvicorn
 from fastapi import FastAPI, Request, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi import FastAPI
+import httpx
 
 from router import realtor_router
 
@@ -28,6 +30,19 @@ app.middleware("http")(UserAgentMiddleware())
 @app.get("/")
 async def main():
     return {"message": "Welcome to the PropertyPulse. visit /docs for endpoints"}
+
+
+@app.get("/check")
+async def check_internet_connection():
+    try:
+        async with httpx.AsyncClient() as client:
+            response = await client.get("http://www.google.com", timeout=5)
+            if response.status_code == 200:
+                return {"message": "Internet connection is active."}
+            else:
+                return {"message": "Unable to establish internet connection."}
+    except Exception as e:
+        return {"message": f"Error: {e}"}
 
 
 app.include_router(realtor_router, prefix="/realtor", tags=["Realtor"])

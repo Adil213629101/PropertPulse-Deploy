@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   // Get the current URL's hostname and set port
   const hostname = window.location.hostname;
-  const port = 80;
+  const port = 8000;
 
   // Define form and input elements
   const form = document.getElementById("scrape-form");

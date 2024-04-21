@@ -1,21 +1,22 @@
-# Use an official Python runtime as the base image
-FROM python:3.9-slim
+# Dockerfile
 
-# Set the working directory in the container
+# Use the official Python image as base
+FROM python:3.9
+
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copy the FastAPI application code
-COPY ./src/api /app/api
+# Copy the requirements file into the container
+COPY requirements.txt .
 
-# Install any needed dependencies specified in requirements.txt
-COPY ./requirements.txt /app/api
-RUN pip install --no-cache-dir -r /app/api/requirements.txt
+# Install dependencies
+RUN pip install -r requirements.txt
 
-# Expose port 80 to the outside world
-EXPOSE 80
+# Copy the source code into the container
+COPY src/ .
 
-# Define environment variable
-ENV PYTHONUNBUFFERED 1
+# Expose ports
+EXPOSE 5000 8000
 
-# Command to run the application
-CMD ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "80"]
+# Command to run the Flask and FastAPI apps
+CMD ["bash", "-c", "(cd src/web && flask run --host=0.0.0.0) & (cd src/api && python -m uvicorn main:app --host 0.0.0.0 --port 8000)"]
